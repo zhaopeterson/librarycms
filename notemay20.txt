@@ -1,0 +1,63 @@
+The reason I start working on the interface is that there is really not much about the database except defining the table fields. Without knowing the interface there is no way I could see the all the datatype I used are valid. I do see database/interface are integrated part of the project instead of isolated modules. I also see there is needs for flexibility as we need to revise the database to interact with the php scripts.
+
+Couple of corrections on the books table is 
+Such as ISBN needs to be BIGINT(13) as the ISBN is 13 digit. INT only goes up 11 digit, until I found the THE NUMBERS GOT TRUNCATED THEN I realized I need to redefine the datatype for the ISBN so did description and title.
+
+
+I do not quite understand of the book_instance table, so I went back to see your goal
+"Member interface allows authorization of pre-registered members, allows them to search books based on title, author and category. Also members may see which books they hold and be able to renew." (I added ISBN) more focusing on how to achieve "reserve books and updae the books on hold.
+
+Here is the public search page (I thought everyone should be able to search the database without login, only when you reserve book you need to login, anyway this is personal preferrence you can set the authorization to your preference)
+
+http://www.librarycms.info/
+Please select the search option first then type in the search words
+You can view the list of book on the database through this page and try some of the isbn, titles, names on this list 
+http://www.librarycms.info/booklist.php
+Once you find the book you are looking for, you can click the book tilte link and it takes you to the detailed book page, which you can reserve (click the button) and it takes you to 
+reserve_book.php (you only can access this page from the book_detail page as it needs passing book_id through the URL) you can go back reserve more book or click "view reservation" button at the bottom, then it takes you to "view_reserve_book.php" it is like a shopping cat without needing to do money part, you can update the volumn. If that is all you want, click the checkout button, which will tell you whatbook you reserved and when is the due date (which is calculated from the books.due_legnth field and the timestamp of when you reserve it.
+
+For reservation I created two tables 'reserves" which records the member_id and reserve date 
+and reserves_content as for a single reserve_id you can reserve multiple books, so probably separating them is better using a simgle table (I assume that is what your book-instance table for)
+
+
+(which is a timestamp when you click the reserve book link)
+I understand there will be key(index) issues here again, I exported them using phpmyadmin, that is the output, I did not key in these the exact way. Nor have I placed the foreign keys here, as it makes dropping table difficult, I am not sure whether this is closet o what you want.
+CREATE TABLE IF NOT EXISTS `reserves` (
+  `reserve_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `member_id` int(10) unsigned DEFAULT NULL,
+  `reserve_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`reserve_id`),
+  KEY `member_id` (`member_id`,`reserve_date`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1
+
+CREATE TABLE IF NOT EXISTS `reserves_content` (
+  `rc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reserve_id` int(10) unsigned DEFAULT NULL,
+  `book_id` int(10) unsigned DEFAULT NULL,
+  `quantity` tinyint(3) unsigned DEFAULT '1',
+  `due_date` datetime NOT NULL,
+  PRIMARY KEY (`rc_id`),
+  KEY `reserve_id` (`reserve_id`,`book_id`,`quantity`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ; 
+
+The members can view their reservation history through the myreserve_history.php
+http://www.librarycms.info/myreserve_history.php
+This page needs to be put under session control, I just assinged a arbitury number (member=1) right now so you know how it looks like.
+
+The checkout.php is the main work here. Upon updating the tranaction (which is reserve books) it will deduct the number of book from the "books" table, and it will insert to booK_history (AKA your borrow_history)  , so later on the library admin can check where are the books under this particular book_id.
+For library admin
+Start with this page (I have not done the update and delete pages yet)
+http://www.librarycms.info/booklist_admin.php
+If you click on the borrow history at the end of the row (try "Centry 21 Accounting" which has a borrow history) you can see the details of who borrowed it.
+http://www.librarycms.info/book_borrowhistory.php(you need get to this page from the booklist.php)
+
+
+There another page called reserve_list.php(which also needs authorization control, I assign $_SESSION['member']="admin"; for now so you can see it without login)
+http://www.librarycms.info/reserve_list.php
+This is a page the output from the "reserves" and "resreves_content", whcih is a list about who reserved what book, since some of the reservations have multiple books, so I had a link to see the reservation_detail, click on the reservation_id link(you will go to reserve_itemdetail.php, so you can see the detail of that particulat reservation order . This page intended to be used by the library admin who will use the list  to give the books to whoever reserved them.
+
+Anyway those are my understanding, I am not sure it it is close to what you have in mind.
+
+I know it is a lot of files and let me know if there is any confusion.
+
+I will give you a zip after I hear feedback and refine some of the codes.

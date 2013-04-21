@@ -1,0 +1,133 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+{\*\generator Msftedit 5.41.21.2508;}\viewkind4\uc1\pard\f0\fs20 -- --------------------------------------------------------\par
+\par
+--\par
+-- Table structure for table `authors`\par
+--\par
+\par
+CREATE TABLE IF NOT EXISTS `authors` (\par
+  `author_id` int(11) NOT NULL,\par
+  `author_firstname` varchar(50) DEFAULT NULL,\par
+  `author_lastname` varchar(50) DEFAULT NULL,\par
+  `author_middlename` varchar(50) DEFAULT NULL,\par
+  PRIMARY KEY (`author_id`)\par
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;\par
+\par
+--\par
+-- Dumping data for table `authors`\par
+--\par
+\par
+INSERT INTO `authors` (`author_id`, `author_firstname`, `author_lastname`, `author_middlename`) VALUES\par
+(1, 'David', 'Powers', NULL),\par
+(2, 'W.', 'Gilmore', 'Jason'),\par
+(3, 'Larry', 'Ullman', NULL),\par
+(4, 'Joel', 'Murach', NULL),\par
+(5, 'Claudia', 'Gilbertson', 'Bienias'),\par
+(6, 'Luke', 'Welling', NULL),\par
+(7, 'Patrick', 'Carey', NULL),\par
+(8, 'David', 'McFarland', 'Sawyer'),\par
+(9, 'Carlos', 'Coronel', NULL),\par
+(10, 'Jason', 'Lengstorf', NULL),\par
+(11, 'Ellen', 'Lupton', NULL),\par
+(12, 'Christian', 'Teubner', NULL),\par
+(13, 'Robert', 'Joseph', NULL),\par
+(14, 'Christine', 'Ingram', NULL),\par
+(15, 'Sally', 'Mansfield', NULL),\par
+(16, 'Joann', 'Barwick', NULL),\par
+(17, 'Peter', 'Hauri', NULL),\par
+(18, 'Pamela', 'Westland', NULL),\par
+(19, 'Mark', 'Evans', NULL),\par
+(20, 'Stanley', 'Greenspan', 'I.');\par
+\par
+-- --------------------------------------------------------\par
+\par
+--\par
+-- Table structure for table `books`\par
+--\par
+\par
+CREATE TABLE IF NOT EXISTS `books` (\par
+  `book_id` int(11) NOT NULL AUTO_INCREMENT,\par
+  `author_id` int(11) NOT NULL,\par
+  `genre_id` int(11) NOT NULL,\par
+  `book_isbn` bigint(20) NOT NULL,\par
+  `book_title` varchar(255) DEFAULT NULL,\par
+  `book_description` varchar(255) NOT NULL,\par
+  `book_format` enum('printed book','e-book','audio book','pdfs') NOT NULL,\par
+  `book_binding` enum('hardcover','paperback','large print','board book') NOT NULL,\par
+  `publish_date` varchar(120) NOT NULL,\par
+  `book_inventory` int(11) NOT NULL,\par
+  `due_length` smallint(6) NOT NULL,\par
+  PRIMARY KEY (`book_id`),\par
+  KEY `author_id` (`author_id`),\par
+  KEY `genre_id` (`genre_id`)\par
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;\par
+\par
+--\par
+-- Dumping data for table `books`\par
+--\par
+\par
+INSERT INTO `books` (`book_id`, `author_id`, `genre_id`, `book_isbn`, `book_title`, `book_description`, `book_format`, `book_binding`, `publish_date`, `book_inventory`, `due_length`) VALUES\par
+(1, 1, 4, 9781430232490, 'PHP Solutions', 'This is the second edition of David Power''s highly-respected PHP Solutions: Dynamic Web Design Made Easy. This new edition has been updated by David to incorporate changes to PHP since the first edition and to offer the latest techniques--a classic guide ', 'printed book', 'paperback', '2010', 3, 30),\par
+(2, 2, 4, 9781430231141, 'Beginning PHP and MySQL: From Novice to Professional', 'Beginning PHP and MySQL: From Novice to Professional, Fourth Edition is a major update of W. Jason Gilmore''s authoritative book on PHP and MySQL. The fourth edition includes complete coverage of PHP 5.3 features, including namespacing, an update of AMP st', 'printed book', 'paperback', '2009', 1, 30),\par
+(3, 3, 4, 9780321525994, 'PHP 6 and MySQL 5 for dynamic web sites', 'With step-by-step instructions, complete scripts, and expert tips to guide readers, veteran author and database designer Larry Ullman gets right down to business: After grounding readers with separate discussions of first the scripting language (PHP) and ', 'printed book', 'paperback', '2008', 4, 14),\par
+(4, 3, 4, 9780321656223, 'Effortless e-Commerce with PHP and MySQL', 'In this comprehensive guide to creating an e-commerce Web site using PHP and MySQL, renowned author Larry Ullman walks you through every step--designing the visual interface, creating the database, presenting content, generating an online catalog, managin', 'printed book', 'paperback', '2011', 2, 14),\par
+(5, 4, 4, 97818907745601, 'murach''s PHP and MySQL', '\\r\\nThe 9-chapter section on PHP teaches you how to build web applications using all the skills that make for a smooth user experience...like how to handle forms, strings, dates, arrays, cookies, sessions, and exceptions;\\r\\nThe 5-chapter section on MySQL tea', 'printed book', 'paperback', '2010', 3, 30),\par
+(6, 5, 2, 9780538447058, 'Century 21 Accounting', '9E reflects guidance from a Teacher Review Board of more than 60 experienced educators, just like you, and input from a first-of-its-kind Student Advisory Board. This edition''s fresh, clean presentation addresses your contemporary classroom needs as effec', 'printed book', 'hardcover', '2009', 5, 30),\par
+(7, 6, 4, 9780672329166, 'PHP and MySQL Web Development ', 'Authors Luke Welling and Laura Thomson''s technique aims to get readers going on their own projects as soon as possible. They present easily digestible sections on specific technical processes--"Accessing array contents" and "Using encryption with PHP" are', 'printed book', 'paperback', '2008', 3, 30),\par
+(8, 7, 4, 9781439044032, 'JavaScript and AJAX (New Perspectives)', 'NEW PERSPECTIVES ON JAVASCRIPT AND AJAX uses a practical, step-by-step approach to provide comprehensive instruction on basic to advanced JavaScript and AJAX concepts. This book teaches students JavaScript and AJAX using a simple text editor to create bas', 'printed book', 'paperback', '2010', 2, 14),\par
+(9, 11, 1, 9782147483647, 'thinking with type a critical guide for designers, writers, editors and students', 'Design isnt just about how things look, the answer to a design challenge is more about discovering why certain things work. In steering projects toward visual solutions that deliver clear messages, we have to look at the very building blocks of design. Th', 'printed book', 'paperback', '2010', 2, 30),\par
+(10, 9, 4, 9780538469685, 'Database System Design, implementation, and Management', 'DATABASE SYSTEMS: DESIGN, IMPLEMENTATION, AND MANAGEMENT, NINTH EDITION, a \\r\\n\\r\\nmarket-leader for database texts, gives readers a solid foundation in practical \\r\\n\\r\\ndatabase design and implementation. The book provides in-depth coverage of \\r\\n\\r\\ndatabase desi', 'printed book', 'hardcover', '2009', 3, 30),\par
+(11, 12, 5, 9780670871056, 'The Herbs Spices Cookbook', 'Eighty step-by-step, herb-and-spice-rich recipes are complemented by lavish demonstrative photographs and include such fare as Frankfurt Green Sauce and Cream of Chervil Soup with Chicken and Comfrey.', 'printed book', 'hardcover', '1996', 1, 30),\par
+(12, 13, 5, 9780765197849, 'The book of  Wine', 'Edited by one of today''s premier wine columnists, the work covers all aspects of wine, travelling back in time to early Greece to examine wine''s role in Dionysian revels, then returning to today''s wine centers to explore all aspects of wine appreciation. ', 'printed book', 'hardcover', '1996', 2, 30),\par
+(13, 14, 5, 9780754804031, 'Rice & Risotto', 'An authoritative look at world''s best-loved grain. A fascinating introduction tells the story of rice cultivation and how and where it is grown today; the myths and legens that surround this supremely important food crop; and the etiquette of eating rice.', 'printed book', 'paperback', '2000', 1, 30),\par
+(14, 15, 5, 978754804048, 'Potato', 'An extensive introduction covers potato preparation and cooking techniques -- from perfect chips and dreamy piles of mash to hasselbacks and fanned patotoes. Also included is expert advice on storage, and choosing and using the right equipment.', 'printed book', 'paperback', '2000', 1, 30),\par
+(15, 16, 7, 9780688094294, 'Outdoor Living and Gardening', 'House Beautiful Outdoor Living and Gardens, with text by Elvin McDonald, showcases inspiringly idyllic scenes of leisure from the Florida coast to the French countryside. The book now in paperback with a new cover invites the reader into a bucolic meadow ', 'printed book', 'hardcover', '1990', 1, 30),\par
+(16, 17, 6, 9780471149047, 'No More Sleepless Nights ', 'Based on sleep disorder studies from the Mayo Clinic''s insomnia program, of which Hauri is director, this book goes into precise detail on the many kinds of insomnia, incorporating the complete range of research and treatment in easy and accessible langua', 'printed book', 'paperback', '1996', 3, 30),\par
+(17, 8, 4, 9780596515898, 'JavasScript: The Missing Manual', 'JavaScript is an essential language for creating modern, interactive websites, but its complex rules challenge even the most experienced web designers. With JavaScript: The Missing Manual, you''ll quickly learn how to use JavaScript in sophisticated ways -', 'printed book', 'paperback', '2008', 2, 30),\par
+(18, 18, 7, 9781840384604, 'Classic Flower Arranging', 'Everything you need to know to create fresh and dried designs including garlands, swags, holiday wreaths, potpourri, and pressed and dried flowers', 'printed book', 'paperback', '1998', 1, 14),\par
+(19, 19, 6, 9781840384468, 'Natural Healing: Remedies  & Therapies', 'From fast-acting natural cures for arthritis, viruses, and hardened arteries, to fatigue, burns and injuries and more, this revised edition of one of the most trusted books on natural remedies includes more than 50 new entries as well as updates throughou', 'printed book', 'paperback', '1999', 1, 14),\par
+(20, 20, 6, 9780201408300, 'PLayground Politics', 'Playground Politics is the first book to look at the neglected middle years of childhood\emdash from kindergarten to junior high\emdash and to help parents understand the enormous emotional challenges these children are facing. In witty, vivid stories, Dr. Greenspan br', 'printed book', 'paperback', '1993', 4, 30),\par
+(21, 10, 4, 9781430228479, 'Pro PHP and JQuery', 'Currently, there are no books that directly teach the combination of PHP and jQuery. This combination is pretty popular, and a book that specifically provides information about combining these two languages will definitely appeal to a large number of toda', 'printed book', 'paperback', '2010', 2, 30),\par
+(22, 3, 4, 9780321524416, 'Building a Web Site with Ajax: Visual QuickProject', 'Ajax is at the heart of the Web 2.0 revolution. It isn''t a technology but, rather, is a technique that leverages other technologies and techniques, such as CSS, XML, DHTML, and XHTML. Many Web designers and programmers would like to incorporate Ajax in th', 'printed book', 'paperback', '2007', 3, 30),\par
+(23, 4, 4, 9781890774554, 'Murach''s JavaScript and DOM Scripting', 'Most books cover JavaScript or DOM scripting. But to create user-responsive sites, you need to know both.\\r\\nSo the first half of this book is a course in JavaScript essentials. Then, the second half is a course in DOM scripting that gives you a clear under', 'printed book', 'paperback', '2009', 3, 30);\par
+\par
+-- --------------------------------------------------------\par
+\par
+--\par
+-- Table structure for table `genres`\par
+--\par
+\par
+CREATE TABLE IF NOT EXISTS `genres` (\par
+  `genre_id` int(11) NOT NULL,\par
+  `genre_name` varchar(100) DEFAULT NULL,\par
+  `genre_description` varchar(255) DEFAULT NULL,\par
+  PRIMARY KEY (`genre_id`)\par
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;\par
+\par
+--\par
+-- Dumping data for table `genres`\par
+--\par
+\par
+INSERT INTO `genres` (`genre_id`, `genre_name`, `genre_description`) VALUES\par
+(1, 'Arts & Crafts', 'Books on art history, dance, theatre, woodworking, and interior design.'),\par
+(2, 'Business & Investing', 'books about small business, investment, entrepreneurship, self-help, personal finance, and career choices.'),\par
+(3, 'Children''s Books', 'Literature for pre-school aged children through young adult readers in all formats from board books to picture books to novels.'),\par
+(4, 'Computer and Internet', 'Strategy and game guides; software and programming guides; certification guides.'),\par
+(5, 'Cooking, Food and Wine', 'Cooking books, baking books, grilling books, vegetarian cookbooks, and books about food and wine.'),\par
+(6, 'Health, Mind and Body', ' Books about health, mind, and body. Self-help books and spiritual guildance.'),\par
+(7, 'Home and Gardening', 'From animal care to antiques, horticulture to home improvement, discover the best new home and garden books.'),\par
+(8, 'Novels (Fictions)', 'Fiction books, short story collections, poetry, and classic literature.'),\par
+(9, 'Novels (Non-Fiction)', 'Books that are nonfiction, or true, are about real things, people, events, and places.');\par
+\par
+--\par
+-- Constraints for dumped tables\par
+--\par
+\par
+--\par
+-- Constraints for table `books`\par
+--\par
+ALTER TABLE `books`\par
+  ADD CONSTRAINT `books_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `authors` (`author_id`),\par
+  ADD CONSTRAINT `books_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`genre_id`);\par
+}
+ 

@@ -1,0 +1,21 @@
+Strategy and game guides; software and programming guides; certification guides. 
+
+Cooking books, baking books, grilling books, vegetarian cookbooks, and books about food and wine.
+
+Books about health, mind, and body. Self-help books and spiritual guildance.
+
+SELECT * FROM books, authors, genres WHERE books.author_id=authors.author_id and books.genre_id=genres.genre_id;
+
+SELECT book_isbn, CONCAT(author_lastname, ", ", author_firstname) AS Author, genre_name, book_title, book_description, book_inventory  FROM books, authors, genres WHERE books.author_id=authors.author_id and books.genre_id=genres.genre_id;
+
+The 9-chapter section on PHP teaches you how to build web applications using all the skills that make for a smooth user experience...like how to handle forms, strings, dates, arrays, cookies, sessions, and exceptions;
+The 5-chapter section on MySQL teaches you all the standard features you need to know for working with databases...like how to design and create a database and how to use SQL and PHP to work with database data
+****************
+9781568989693
+
+Design isnt just about how things look, the answer to a design challenge is more about discovering why certain things work. In steering projects toward visual solutions that deliver clear messages, we have to look at the very building blocks of design. Thinking with Type: A Critical Guide for Designers, Writers, Editors, - Students aims to get at the heart of this issue.
+
+9780538469685
+DATABASE SYSTEMS: DESIGN, IMPLEMENTATION, AND MANAGEMENT, NINTH EDITION, a market-leader for database texts, gives readers a solid foundation in practical database design and implementation. The book provides in-depth coverage of database design, demonstrating that the key to successful database implementation is in proper design of databases to fit within a larger strategic view of the data environment. -Updated coverage of data models. -Improved coverage of normalization with a data modeling checklist. 
+
+$sql = 'SELECT book_id, book_isbn, CONCAT(author_lastname, ", ", author_firstname) AS author, genre_name, book_title, book_description, book_format, book_binding, publish_date, book_inventory, due_length  FROM books INNER JOIN authors INNER JOIN  genres USING (book_id) WHERE books.book_id=$book_id';

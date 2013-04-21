@@ -1,0 +1,30 @@
+Hi my Team - Brooke and Koji! Welcome aboard!
+
+Let's start with database. I will try to give you more detailed info.
+Initially let's create 2 tables: Genre and Authors.
+I want to give you 2 tips:
+1. Use INTEGER data types for primary keys (ID). May be auto_increment. As those fileds will be used as foreign keys.
+2. Avoid using reserved keywords as field names when possible.
+For instance, use "Genre_Name" instead of just "Name"
+
+Genre may consist of ID, genre_name, and description (optional).
+
+Authors may consist of ID, Author_Name. (As of my experience I would recommend using just one field for Authors Name to make it less complicated).
+
+Feel free to add additional fields once you found them necessary.
+
+Another table - Members. This table will be used for users authorization. So fields are ID (as a primary key), Login and Password. And again, I leave it up to you to add additional fields like SSN, Address, Telephone, First Name, Last Name and so on.
+
+Now about table Books.
+In order the database to perform well I would recommend integer ID as a primary key. (better to be auto_increment). In case where this database will operate to any external systems (like another library, or bookstore, etc) let's use the field ISBN and make it look like real ISBN field.
+As you mentioned this table should have foreign key references to Genre table, and so for Author.
+Obviously we need field "Title". Also I think there are 2 important fields - Number_of_volumes and Due_length (number of days). The rest of this table I leave up to you. You can add Brief_description, Year and so on.
+Every single book must have its own record in the database. Let's create table Book_Instance, with its own ID as a primary key and Book_ID as a foreign key from Books table. Also important field is Volume_number, and optionally you may add something like Condition, Comments etc.
+
+And finally, Borrow_History - the table which stores the information about all user activities. It includes - ID, BookID, (references to Book_Instance), Member_ID (references to Members), Order_date, Return_date.
+Please note, no need to create due_date as it may be calculated (adding due_length from Books to Order_date)
+
+In reality this database may be much more complicated. For instance, one book may be listed under several categories, or can be written by two or more authors, but let's skip that to keep the project simple.
+Let me know if you have any questions. Any comments are welcome.
+Regards,
+Heghine
